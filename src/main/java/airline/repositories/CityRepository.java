@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-//@Service
 public class CityRepository {
 
-    //    @ModelAttribute("cities")
     public List<City> getCities() {
         List<City> cities = new ArrayList<City>();
         cities.add(new City("HYD", "Hyderabad"));
