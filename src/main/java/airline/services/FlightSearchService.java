@@ -16,6 +16,10 @@ public class FlightSearchService {
 
     FlightRepository flightRepository;
 
+    public FlightSearchService() {
+        this.numberOfSeats = 1;
+    }
+
     public String getSource() {
         return source;
     }
