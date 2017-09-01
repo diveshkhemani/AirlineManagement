@@ -13,11 +13,12 @@ public class FlightSearchService {
     private String source;
     private String destination;
     private int numberOfSeats;
+    private final int DEFAULTNUMBEROFSEAT = 1;
 
     FlightRepository flightRepository;
 
     public FlightSearchService() {
-        this.numberOfSeats = 1;
+        this.numberOfSeats = DEFAULTNUMBEROFSEAT;
     }
 
     public String getSource() {
