@@ -25,14 +25,13 @@ public class FlightSearchController {
         cityRepository = new CityRepository();
         List<City> cities = cityRepository.getCities();
         model.addAttribute("cities", cities);
-        model.addAttribute("flight", new Flight("F1","HYD","BLR",1));
+        model.addAttribute("searchCriteria", new FlightSearchService());
         return "FlightSearch";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String getFlights(@ModelAttribute(value = "flight") Flight flight, Model model) {
-        flightSearchService = new FlightSearchService();
-        List<Flight> availableFlights = flightSearchService.search(flight);
+    public String getFlights(@ModelAttribute(value = "flight") FlightSearchService searchCriteria, Model model) {
+        List<Flight> availableFlights = searchCriteria.search();
         model.addAttribute("searchResults",availableFlights);
         return "FlightsList";
     }

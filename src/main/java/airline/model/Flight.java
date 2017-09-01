@@ -6,19 +6,15 @@ public class Flight {
     private String flightNumber;
     private String source;
     private String destination;
-    private int capacity;
     private int availableSeats;
+    private Airplane airplane;
 
     public int getCapacity() {
-        return capacity;
+        return airplane.getCapacity();
     }
 
     public int getAvailableSeats(){
         return availableSeats;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public Flight() {
@@ -29,8 +25,8 @@ public class Flight {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
-        this.capacity = capacity;
         this.availableSeats = capacity;
+        this.airplane = new Airplane(capacity);
     }
 
     public String getFlightNumber() {

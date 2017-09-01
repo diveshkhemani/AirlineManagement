@@ -15,6 +15,7 @@
                         <th>#</th>
                         <th>Source</th>
                         <th>Destination</th>
+                        <th>Available Seats</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,7 @@
                         <td th:text="${flight.flightNumber}"/>
                         <td th:text="${flight.source}"/>
                         <td th:text="${flight.destination}"/>
+                        <td th:text="${flight.availableSeats}"/>
                     </tr>
                 </tbody>
             </table>

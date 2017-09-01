@@ -10,15 +10,43 @@ import java.util.List;
 
 @Service
 public class FlightSearchService {
-    @Autowired
+    private String source;
+    private String destination;
+    private int numberOfSeats;
+
     FlightRepository flightRepository;
 
-    public List<Flight> search(Flight searchCriteria) {
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
+
+    public List<Flight> search() {
         flightRepository = new FlightRepository();
         List<Flight> availableFlights = new ArrayList<Flight>();
 
         for (Flight flight : flightRepository.getFlights()) {
-            if (searchCriteria.getSource().equals(flight.getSource()) && searchCriteria.getDestination().equals(flight.getDestination()) && flight.getAvailableSeats()>=searchCriteria.getCapacity())
+            if (source.equals(flight.getSource()) && destination.equals(flight.getDestination()) && flight.getAvailableSeats()>=numberOfSeats)
                 availableFlights.add(flight);
         }
         return availableFlights;
