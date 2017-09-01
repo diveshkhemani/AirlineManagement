@@ -13,12 +13,12 @@ public class FlightSearchService {
     @Autowired
     FlightRepository flightRepository;
 
-    public List<Flight> search(String source, String destination) {
+    public List<Flight> search(Flight searchCriteria) {
         flightRepository = new FlightRepository();
         List<Flight> availableFlights = new ArrayList<Flight>();
 
         for (Flight flight : flightRepository.getFlights()) {
-            if (source.equals(flight.getSource()) && (destination.equals(flight.getDestination())))
+            if (searchCriteria.getSource().equals(flight.getSource()) && searchCriteria.getDestination().equals(flight.getDestination()) && flight.getAvailableSeats()>=searchCriteria.getCapacity())
                 availableFlights.add(flight);
         }
         return availableFlights;

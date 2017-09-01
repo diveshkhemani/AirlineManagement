@@ -12,10 +12,10 @@ public class FlightRepository {
     private ArrayList<Flight> flights = new ArrayList<Flight>();
 
     public ArrayList<Flight> getFlights() {
-        Flight flight1 = new Flight("F1", "HYD", "BLR");
-        Flight flight2 = new Flight("F2", "HYD", "PUN");
-        Flight flight3 = new Flight("F3", "BLR", "PUN");
-        Flight flight4 = new Flight("F4", "HYD", "BLR");
+        Flight flight1 = new Flight("F1", "HYD", "BLR",120);
+        Flight flight2 = new Flight("F2", "HYD", "PUN",150);
+        Flight flight3 = new Flight("F3", "BLR", "PUN",30);
+        Flight flight4 = new Flight("F4", "HYD", "BLR",10);
 
 
         flights.add(flight1);
