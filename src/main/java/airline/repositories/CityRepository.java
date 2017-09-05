@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-public class CityRepository {
 
+public class CityRepository {
     public List<City> getCities() {
         List<City> cities = new ArrayList<City>();
         cities.add(new City("HYD", "Hyderabad"));
@@ -14,5 +14,6 @@ public class CityRepository {
         cities.add(new City("PUN", "Pune"));
         return cities;
     }
+
 
 }

@@ -8,4 +8,5 @@ public class AirlineBookingApp {
     public static void main(String[] args) {
         SpringApplication.run(AirlineBookingApp.class, args);
     }
+
 }

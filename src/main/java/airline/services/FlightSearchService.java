@@ -2,58 +2,45 @@ package airline.services;
 
 import airline.model.Flight;
 import airline.repositories.FlightRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import airline.viewModels.FlightSearchCriteria;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class FlightSearchService {
     private String source;
     private String destination;
+    private LocalDate departureDate;
     private int numberOfSeats;
-    private final int DEFAULT_NUMBER_OF_SEAT = 1;
 
-    FlightRepository flightRepository;
-
-    public FlightSearchService() {
-        this.numberOfSeats = DEFAULT_NUMBER_OF_SEAT;
+    public FlightSearchService(FlightSearchCriteria flightSearchCriteria) {
+        this.source = flightSearchCriteria.getSource();
+        this.destination = flightSearchCriteria.getDestination();
+        this.numberOfSeats = flightSearchCriteria.getNumberOfSeats();
+        this.departureDate = LocalDate.parse(flightSearchCriteria.getDepartureDate());
     }
 
-    public String getSource() {
-        return source;
+    private boolean compareRoute(Flight flight){
+        return source.equals(flight.getSource()) && destination.equals(flight.getDestination());
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    private boolean checkSeatAvailability(Flight flight){
+        return flight.getAvailableSeats()>=numberOfSeats;
     }
 
-    public String getDestination() {
-        return destination;
+    private boolean checkDepartureDate(Flight flight){
+        return departureDate.isEqual(flight.getDepartureDate());
     }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public int getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
-    }
-
-
     public List<Flight> search() {
-        flightRepository = new FlightRepository();
+        FlightRepository flightRepository = new FlightRepository();
         List<Flight> availableFlights = new ArrayList<Flight>();
 
         for (Flight flight : flightRepository.getFlights()) {
-            if (source.equals(flight.getSource()) && destination.equals(flight.getDestination()) && flight.getAvailableSeats()>=numberOfSeats)
+            if (compareRoute(flight) && checkSeatAvailability(flight) && checkDepartureDate(flight))
                 availableFlights.add(flight);
         }
         return availableFlights;
     }
+
 }

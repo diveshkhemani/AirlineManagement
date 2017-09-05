@@ -1,6 +1,7 @@
 package airline.model;
 
 public class Airplane {
+
     private int capacity;
 
     public Airplane(int capacity) {

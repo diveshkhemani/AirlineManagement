@@ -1,6 +1,6 @@
 package airline.model;
 
-import java.awt.datatransfer.FlavorListener;
+import java.time.LocalDate;
 
 public class Flight {
     private String flightNumber;
@@ -8,6 +8,7 @@ public class Flight {
     private String destination;
     private int availableSeats;
     private Airplane airplane;
+    private LocalDate departureDate;
 
     public int getCapacity() {
         return airplane.getCapacity();
@@ -18,15 +19,25 @@ public class Flight {
     }
 
     public Flight() {
-    
+
     }
 
-    public Flight(String flightNumber, String source, String destination, int capacity) {
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public Flight(String flightNumber, String source, String destination, int capacity, LocalDate departureDate) {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
         this.availableSeats = capacity;
         this.airplane = new Airplane(capacity);
+        this.departureDate = departureDate;
+
     }
 
     public String getFlightNumber() {
