@@ -1,6 +1,5 @@
 package airline.viewModels;
 
-import airline.repositories.FlightRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,12 +8,10 @@ import java.time.LocalDate;
 public class FlightSearchCriteria {
     private String source;
     private String destination;
+    private String travelClass;
     private int numberOfSeats;
     private final int DEFAULT_NUMBER_OF_SEAT = 1;
     private LocalDate departureDate;
-
-
-    FlightRepository flightRepository;
 
     public FlightSearchCriteria() {
         this.numberOfSeats = DEFAULT_NUMBER_OF_SEAT;
@@ -22,11 +19,11 @@ public class FlightSearchCriteria {
     }
 
     public String getDepartureDate() {
-        return departureDate.toString();
+        return departureDate != null ? departureDate.toString() : null;
     }
 
     public void setDepartureDate(String departureDate) {
-        this.departureDate = LocalDate.parse(departureDate);
+        this.departureDate = departureDate.equals("") ? null : LocalDate.parse(departureDate);
     }
 
     public String getSource() {
@@ -53,4 +50,7 @@ public class FlightSearchCriteria {
         this.numberOfSeats = numberOfSeats;
     }
 
+    public void setTravelClass(String travelClass) { this.travelClass = travelClass; }
+
+    public String getTravelClass() { return travelClass; }
 }

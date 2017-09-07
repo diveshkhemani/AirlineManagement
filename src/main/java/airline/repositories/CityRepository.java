@@ -14,6 +14,4 @@ public class CityRepository {
         cities.add(new City("PUN", "Pune"));
         return cities;
     }
-
-
 }

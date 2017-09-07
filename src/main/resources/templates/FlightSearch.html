@@ -7,34 +7,74 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
 </head>
 <body>
-<div class="container">
-    <p th:text="'Welcome to TWAirline'"/>
-
-    <form method="post" th:action="@{/search}" th:object="${searchCriteria}">
-        <div class="form-group">
-            <select title="Source" class="form-control" id="source" name="source" th:field="*{source}">
-                <option value="">Select Source</option>
-                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}" ></option>
-            </select>
+    <div class="container">
+        <div class="jumbotron" th:if="${searchResults}==null">
+            <h1 class="display-3">Welcome to TW Airline</h1>
+            <p class="lead">This is a simple flight search portal made with SpringBoot</p>
         </div>
-        <div class="form-group">
-            <select class="form-control" id="destination" name="destination" th:field="*{destination}">
-                <option value="">Select Destination</option>
-                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
-            </select>
+        <form method="post" th:action="@{/}" th:object="${searchCriteria}">
+            <div class="form-group">
+                <label>From</label>
+                <select title="Source" class="form-control col-md-6" id="source" name="source" th:field="*{source}">
+                    <option value="">Select Source</option>
+                    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}" ></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>To</label>
+                <select class="form-control col-md-6" id="destination" name="destination" th:field="*{destination}">
+                    <option value="">Select Destination</option>
+                    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Travel Class</label>
+                <select title="TravelClass" class="form-control col-md-6" id="travelClass" name="travelClass" th:field="*{travelClass}">
+                    <option value="">Select Travel Class</option>
+                    <option th:each="travelClass : ${travelClasses}" th:value="${travelClass}" th:text="${travelClass}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label># of Passengers</label>
+                <input type = "number" th:field="*{numberOfSeats}"  class="form-control col-md-6" min="1"/>
+            </div>
+            <div class="form-group">
+                <label>Date of Journey</label>
+                <input type = "date" th:field="*{departureDate}"  class="form-control col-md-6" th:attr="min=${today}" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control button btn-primary col-sm-3">Search</button>
+            </div>
+        </form>
+
+        <hr class="my-4"/>
+
+        <div th:if="${searchResults}!=null">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Airplane Name</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Available Seats</th>
+                        <th>Departure Date</th>
+                        <th>Travel Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="flight : ${searchResults}">
+                        <td th:text="${flight.flightNumber}"/>
+                        <td th:text="${flight.getAirPlaneName()}"/>
+                        <td th:text="${flight.source}"/>
+                        <td th:text="${flight.destination}"/>
+                        <td th:text="${flight.getSeatsByClass(searchCriteria.travelClass)}"/>
+                        <td th:text ="${flight.departureDate}"/>
+                        <td th:text="${searchCriteria.travelClass}"/>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            <input type="number" th:field="*{numberOfSeats}" min="1" max="500" class="form-control"/>
-        </div>
-
-
-        <!-- New Code Starts here -->
-         <div class="form-group">
-            <input type = "date" th:field="*{departureDate}"  class="form-control" min="2017-09-04" max="2017-12-31"/>
-         </div>
-
-            <input type="submit" class="form-control" value="Search"/>
-    </form>
-</div>
+    </div>
 </body>
 </html>

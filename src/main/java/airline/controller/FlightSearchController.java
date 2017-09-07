@@ -2,39 +2,49 @@ package airline.controller;
 
 import airline.model.City;
 import airline.model.Flight;
+import airline.model.TravelClass;
 import airline.repositories.CityRepository;
+import airline.repositories.FlightRepository;
 import airline.services.FlightSearchService;
 import airline.viewModels.FlightSearchCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.*;
 
-
 @Controller
-
 public class FlightSearchController {
-    CityRepository cityRepository;
-    @Autowired
-    FlightSearchCriteria flightSearchCriteria;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getCities(Model model) {
-        cityRepository = new CityRepository();
+    public String home(Model model) {
+        CityRepository cityRepository = new CityRepository();
         List<City> cities = cityRepository.getCities();
+
         model.addAttribute("cities", cities);
         model.addAttribute("searchCriteria", new FlightSearchCriteria());
+        model.addAttribute("searchResults",null);
+        model.addAttribute("travelClasses", Arrays.asList(TravelClass.values()));
+        model.addAttribute("today", LocalDate.now().toString());
         return "FlightSearch";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String getFlights(@ModelAttribute(value = "searchCriteria") FlightSearchCriteria searchCriteria, Model model) {
-        FlightSearchService flightSearch = new FlightSearchService(searchCriteria);
-        List<Flight> availableFlights = flightSearch.search();
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String search(@ModelAttribute(value = "searchCriteria") FlightSearchCriteria searchCriteria, Model model) {
+        CityRepository cityRepository = new CityRepository();
+        List<City> cities = cityRepository.getCities();
+        FlightSearchService flightSearch = new FlightSearchService();
+        FlightRepository flightRepository = new FlightRepository();
+
+        List<Flight> availableFlights = flightSearch.search(flightRepository.getFlights(),searchCriteria);
+
+        model.addAttribute("cities", cities);
+        model.addAttribute("searchCriteria", searchCriteria);
         model.addAttribute("searchResults",availableFlights);
-        return "FlightsList";
+        model.addAttribute("travelClasses", Arrays.asList(TravelClass.values()));
+        model.addAttribute("today", LocalDate.now().toString());
+        return "FlightSearch";
     }
 
 }
