@@ -22,28 +22,26 @@ public class FlightSearchCriteria {
         return departureDate != null ? departureDate.toString() : null;
     }
 
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate.equals("") ? null : LocalDate.parse(departureDate);
-    }
-
     public String getSource() {
         return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
     }
 
     public String getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
     public int getNumberOfSeats() {
         return numberOfSeats;
+    }
+
+    public String getTravelClass() { return travelClass; }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public void setNumberOfSeats(int numberOfSeats) {
@@ -52,5 +50,7 @@ public class FlightSearchCriteria {
 
     public void setTravelClass(String travelClass) { this.travelClass = travelClass; }
 
-    public String getTravelClass() { return travelClass; }
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate.equals("") ? null : LocalDate.parse(departureDate);
+    }
 }

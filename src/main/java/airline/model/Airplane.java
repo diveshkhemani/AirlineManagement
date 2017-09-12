@@ -18,4 +18,6 @@ public class Airplane {
 
     public int getSeatsByClass(TravelClass travelClass) { return seatsList.get(travelClass);}
 
+    public boolean hasTravelClass(TravelClass travelClass){ return seatsList.containsKey(travelClass); }
+
 }

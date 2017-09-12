@@ -29,15 +29,15 @@ public class FlightSearchService {
     }
 
     private Predicate<Flight> searchByRoute(List<Flight> flights, FlightSearchCriteria searchCriteria) {
-        return (flight -> (flight.startsFrom(searchCriteria.getSource()) && flight.goesTo(searchCriteria.getDestination())));
+        return flight -> flight.hasRoute(searchCriteria.getSource(),searchCriteria.getDestination());
     }
 
     private Predicate<Flight> searchByDepartureDate(List<Flight> flights, FlightSearchCriteria searchCriteria) {
-        return (flight -> (flight.fliesOn(LocalDate.parse(searchCriteria.getDepartureDate()))));
+        return flight -> flight.fliesOn(LocalDate.parse(searchCriteria.getDepartureDate()));
     }
 
     private Predicate<Flight> searchByTravelType(List<Flight> flights, FlightSearchCriteria searchCriteria) {
-       return flight -> flight.getSeatsByClass(TravelClass.valueOf(searchCriteria.getTravelClass())) >= searchCriteria.getNumberOfSeats();
+       return flight -> flight.hasAvailableByClass(searchCriteria.getTravelClass(),searchCriteria.getNumberOfSeats());
     }
 }
 

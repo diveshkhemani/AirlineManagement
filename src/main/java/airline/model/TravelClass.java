@@ -1,4 +1,5 @@
 package airline.model;
 
 
-public enum TravelClass { Economy, Business, First }
+public enum TravelClass { Economy, Business, First };
+
