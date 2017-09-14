@@ -39,17 +39,17 @@ public class FlightTest {
 
     @Test
     public void shouldBeTrueFor3SeatsForBusiness() throws Exception {
-        Assert.assertEquals(true, flight.hasAvailableByClass("Business", 3));
+        Assert.assertEquals(true, flight.hasAvailableSeatsByClass("Business", 3));
     }
 
     @Test
     public void shouldBeFalseFor30SeatsForBusiness() throws Exception {
-        Assert.assertEquals(false, flight.hasAvailableByClass("Business", 30));
+        Assert.assertEquals(false, flight.hasAvailableSeatsByClass("Business", 30));
     }
 
     @Test
     public void getBeFalseForUnknownClass() throws Exception {
-        Assert.assertEquals(false, flight.hasAvailableByClass("", 5));
+        Assert.assertEquals(false, flight.hasAvailableSeatsByClass("", 5));
     }
 
     @Test

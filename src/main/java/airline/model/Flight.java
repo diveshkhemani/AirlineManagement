@@ -1,6 +1,5 @@
 package airline.model;
 
-import airline.repositories.AirplaneRepository;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -20,7 +19,6 @@ public class Flight {
         this.airplane= airplane;
     }
 
-
     private boolean startsFrom(String source){ return this.source.equals(source); }
 
     private boolean goesTo(String destination){ return  this.destination.equals(destination); }
@@ -31,48 +29,43 @@ public class Flight {
 
     public boolean fliesOn(LocalDate journeyDate){ return departureDate.isEqual(journeyDate);}
 
+    //Smell : Not sure where to add this method;
+    //do : Make a util class if needed
     public boolean isValidTravelClass(String travelClass) {
         return Arrays.stream(TravelClass.values()).anyMatch(e -> e.name().equals(travelClass));
-    };
+    }
 
-    public boolean hasAvailableByClass(String travelClass, int requiredSeats){
-        if(!travelClass.isEmpty() && isValidTravelClass(travelClass) && airplane.hasTravelClass(TravelClass.valueOf(travelClass))){
-            return requiredSeats <= airplane.getSeatsByClass(TravelClass.valueOf(travelClass)).getAvailableSeats();
+    public boolean hasAvailableSeatsByClass(String travelClass, int requiredSeats){
+        if(isValidTravelClass(travelClass)){
+            return requiredSeats <= airplane.getAvailableSeatsByClass(TravelClass.valueOf(travelClass));
         }
         else
             return false;
     }
 
+    public int getSeatsByClass(String travelClass){
+        return isValidTravelClass(travelClass) ?
+                airplane.getAvailableSeatsByClass(TravelClass.valueOf(travelClass)) :
+                0;
+    }
+
+    // Proxy Methods for Airplane
     public int getAvailableSeatsByClass(TravelClass travelClass){
-        if(isValidTravelClass(travelClass.toString()) && airplane.hasTravelClass(travelClass)){
-            return airplane.getSeatsByClass(travelClass).getAvailableSeats();
-        }
-        else
-            return 0;
+        return airplane.getAvailableSeatsByClass(travelClass);
     }
 
     public int getTotalSeatsByClass(TravelClass travelClass){
-        if(isValidTravelClass(travelClass.toString()) && airplane.hasTravelClass(travelClass)){
-            return airplane.getSeatsByClass(travelClass).getTotalSeats();
-        }
-        else
-            return 0;
-    }
-
-    public int getSeatsByClass(String travelClass){
-        if(!travelClass.isEmpty() && isValidTravelClass(travelClass) && airplane.hasTravelClass(TravelClass.valueOf(travelClass))){
-            return airplane.getSeatsByClass(TravelClass.valueOf(travelClass)).getAvailableSeats();
-        }
-        else
-            return 0;
+        return airplane.getTotalSeatsByClass(travelClass);
     }
 
     public double getPriceByClass(TravelClass travelClass)
     {
-        return airplane.getSeatsByClass(travelClass).getbasePrice();
+        return airplane.getBasePriceByClass(travelClass);
     }
 
-    public String getAirPlaneName() { return airplane.getAirPlaneName(); }
+    public String getAirPlaneName() {
+        return airplane.getAirPlaneName();
+    }
 
     // Required in Views
     public String getFlightNumber() { return flightNumber; }

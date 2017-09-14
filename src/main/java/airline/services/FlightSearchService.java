@@ -37,7 +37,7 @@ public class FlightSearchService {
     }
 
     private Predicate<Flight> searchByTravelType(List<Flight> flights, FlightSearchCriteria searchCriteria) {
-       return flight -> flight.hasAvailableByClass(searchCriteria.getTravelClass(),searchCriteria.getNumberOfSeats());
+       return flight -> flight.hasAvailableSeatsByClass(searchCriteria.getTravelClass(),searchCriteria.getNumberOfSeats());
     }
 }
 

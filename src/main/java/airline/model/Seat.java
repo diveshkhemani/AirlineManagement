@@ -17,9 +17,7 @@ public class Seat {
         return travelClass;
     }
 
-    public double getbasePrice() {
-        return basePrice;
-    }
+    public double getBasePrice() { return basePrice; }
 
     public int getTotalSeats() {
         return totalSeats;

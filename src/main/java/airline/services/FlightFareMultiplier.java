@@ -3,7 +3,7 @@ package airline.services;
 import airline.model.Flight;
 import airline.model.TravelClass;
 
-public class FlightFareMultiplierService {
+public class FlightFareMultiplier {
 
     public static Double getEconomyClassRateByBookingDate(Flight flight) {
         int availableEconomySeats = flight.getAvailableSeatsByClass(TravelClass.Economy);

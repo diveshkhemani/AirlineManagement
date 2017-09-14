@@ -23,7 +23,32 @@ public class AirplaneTest {
 
     @Test
     public void shouldReturnAvailableSeatsWhenTravelClassSpecified() {
-        Assert.assertEquals(10, airplane.getSeatsByClass(TravelClass.Economy).getAvailableSeats());
+        Assert.assertEquals(10, airplane.getAvailableSeatsByClass(TravelClass.Economy));
+    }
+
+    @Test
+    public void shouldReturnZeroAvailableSeatsWhenTravelClassNotPresent() {
+        Assert.assertEquals(0, airplane.getAvailableSeatsByClass(TravelClass.First));
+    }
+
+    @Test
+    public void shouldReturnTotalSeatsWhenTravelClassSpecified() {
+        Assert.assertEquals(10, airplane.getTotalSeatsByClass(TravelClass.Economy));
+    }
+
+    @Test
+    public void shouldReturnZeroTotalSeatsWhenTravelClassNotPresent() {
+        Assert.assertEquals(0, airplane.getTotalSeatsByClass(TravelClass.First));
+    }
+
+    @Test
+    public void shouldReturnBasePriceWhenTravelClassSpecified() {
+        Assert.assertEquals(40, airplane.getBasePriceByClass(TravelClass.Economy),0.0);
+    }
+
+    @Test
+    public void shouldReturnZeroBasePriceWhenTravelClassSpecifiedIsNotPresent() {
+        Assert.assertEquals(0, airplane.getBasePriceByClass(TravelClass.First),0.0);
     }
 
     @Test

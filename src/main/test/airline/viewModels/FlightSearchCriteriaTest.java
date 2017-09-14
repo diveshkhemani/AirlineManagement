@@ -1,53 +1,29 @@
 package airline.viewModels;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
 public class FlightSearchCriteriaTest {
-    @Before
-    public void setUp() throws Exception {
+
+    @Test
+    public void getDepartureDateWhenDateIsPresent() throws Exception {
+        String testDate = "2017-09-11";
+        FlightSearchCriteria flightSearchCriteria = new FlightSearchCriteria();
+        flightSearchCriteria.setDepartureDate(testDate);
+        Assert.assertEquals(testDate,flightSearchCriteria.getDepartureDate());
     }
 
     @Test
-    public void getDepartureDate() throws Exception {
-    }
-
-    @Test
-    public void setDepartureDate() throws Exception {
-    }
-
-    @Test
-    public void getSource() throws Exception {
-    }
-
-    @Test
-    public void setSource() throws Exception {
-    }
-
-    @Test
-    public void getDestination() throws Exception {
-    }
-
-    @Test
-    public void setDestination() throws Exception {
-    }
-
-    @Test
-    public void getNumberOfSeats() throws Exception {
-    }
-
-    @Test
-    public void setNumberOfSeats() throws Exception {
-    }
-
-    @Test
-    public void setTravelClass() throws Exception {
-    }
-
-    @Test
-    public void getTravelClass() throws Exception {
+    public void getNullWhenDateIsAbsent() throws Exception {
+        String testDate = "";
+        FlightSearchCriteria flightSearchCriteria = new FlightSearchCriteria();
+        flightSearchCriteria.setDepartureDate(testDate);
+        Assert.assertEquals(null,flightSearchCriteria.getDepartureDate());
     }
 
 }
