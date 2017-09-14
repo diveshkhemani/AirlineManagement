@@ -5,7 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlightTest {
 
@@ -13,10 +14,10 @@ public class FlightTest {
 
     @Before
     public void initialize(){
-        HashMap<TravelClass,Integer> seats =new HashMap<TravelClass, Integer>();
-        seats.put(TravelClass.Economy,10);
-        seats.put(TravelClass.Business,3);
-        Airplane airplane = new Airplane("TestPlane",seats);
+        List<Seat> testSeats = new ArrayList<Seat>();
+        testSeats.add(new Seat(TravelClass.Economy,40,10,10));
+        testSeats.add(new Seat(TravelClass.Business,10,30,3));
+        Airplane airplane = new Airplane("TestPlane",testSeats);
         flight = new Flight("F1234","IXC" , "MUM", LocalDate.now(),airplane);
     }
 

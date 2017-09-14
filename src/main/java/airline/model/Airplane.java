@@ -1,23 +1,34 @@
 package airline.model;
 
-import java.util.HashMap;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Airplane {
 
-    private HashMap<TravelClass,Integer> seatsList;
+    private List<Seat> seats;
     private String airPlaneName;
 
-    public Airplane(String airPlaneName,HashMap<TravelClass,Integer> seatsList)
+    public Airplane(String airPlaneName,List<Seat> seats)
     {
+
         this.airPlaneName = airPlaneName;
-        this.seatsList=seatsList;
+        this.seats=seats;
     }
 
     public String getAirPlaneName() { return airPlaneName; }
 
-    public int getSeatsByClass(TravelClass travelClass) { return seatsList.get(travelClass);}
 
-    public boolean hasTravelClass(TravelClass travelClass){ return seatsList.containsKey(travelClass); }
+    public Seat getSeatsByClass(TravelClass travelClass)
+    {
+        return seats.stream()
+                .filter((seat -> seat.getTravelClass().equals(travelClass)))
+                .collect(Collectors.toList()).get(0);
+    }
+
+    public boolean hasTravelClass(TravelClass travelClass){
+        return seats.stream().filter(seat -> seat.getTravelClass().equals(travelClass)).findFirst().isPresent();
+    }
 
 }

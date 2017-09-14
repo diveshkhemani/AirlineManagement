@@ -37,7 +37,7 @@ public class Flight {
 
     public boolean hasAvailableByClass(String travelClass, int requiredSeats){
         if(!travelClass.isEmpty() && isValidTravelClass(travelClass) && airplane.hasTravelClass(TravelClass.valueOf(travelClass))){
-            return requiredSeats <= airplane.getSeatsByClass(TravelClass.valueOf(travelClass));
+            return requiredSeats <= airplane.getSeatsByClass(TravelClass.valueOf(travelClass)).getAvailableSeats();
         }
         else
             return false;
@@ -45,10 +45,15 @@ public class Flight {
 
     public int getSeatsByClass(String travelClass){
         if(!travelClass.isEmpty() && isValidTravelClass(travelClass) && airplane.hasTravelClass(TravelClass.valueOf(travelClass))){
-            return airplane.getSeatsByClass(TravelClass.valueOf(travelClass));
+            return airplane.getSeatsByClass(TravelClass.valueOf(travelClass)).getAvailableSeats();
         }
         else
             return 0;
+    }
+
+    public double getPriceByClass(TravelClass travelClass)
+    {
+        return airplane.getSeatsByClass(travelClass).getbasePrice();
     }
 
     public String getAirPlaneName() { return airplane.getAirPlaneName(); }

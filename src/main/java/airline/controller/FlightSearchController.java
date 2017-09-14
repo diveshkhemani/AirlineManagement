@@ -5,6 +5,7 @@ import airline.model.Flight;
 import airline.model.TravelClass;
 import airline.repositories.CityRepository;
 import airline.repositories.FlightRepository;
+import airline.services.FlightPriceCalculator;
 import airline.services.FlightSearchService;
 import airline.viewModels.FlightSearchCriteria;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class FlightSearchController {
         List<City> cities = cityRepository.getCities();
         FlightSearchService flightSearch = new FlightSearchService();
         FlightRepository flightRepository = new FlightRepository();
-
+        FlightPriceCalculator flightPriceCalculator = new FlightPriceCalculator();
         List<Flight> availableFlights = flightSearch.search(flightRepository.getFlights(),searchCriteria);
 
         model.addAttribute("cities", cities);
@@ -44,6 +45,7 @@ public class FlightSearchController {
         model.addAttribute("searchResults",availableFlights);
         model.addAttribute("travelClasses", Arrays.asList(TravelClass.values()));
         model.addAttribute("today", LocalDate.now().toString());
+        model.addAttribute("priceCalculator", flightPriceCalculator);
         return "FlightSearch";
     }
 

@@ -1,12 +1,12 @@
 package airline.model;
 
-import airline.model.Airplane;
-import airline.model.TravelClass;
 import org.junit.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import java.util.HashMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AirplaneTest {
@@ -14,15 +14,16 @@ public class AirplaneTest {
 
     @Before
     public void initialize(){
-        HashMap<TravelClass,Integer> seats =new HashMap<TravelClass, Integer>();
-        seats.put(TravelClass.Economy,10);
-        seats.put(TravelClass.Business,3);
-        airplane = new Airplane("TestPlane",seats);
+
+        List<Seat> testSeats = new ArrayList<Seat>();
+        testSeats.add(new Seat(TravelClass.Economy,40,10,10));
+        testSeats.add(new Seat(TravelClass.Business,10,30,3));
+        airplane = new Airplane("TestPlane",testSeats);
     }
 
     @Test
     public void shouldReturnAvailableSeatsWhenTravelClassSpecified() {
-        Assert.assertEquals(10, airplane.getSeatsByClass(TravelClass.Economy));
+        Assert.assertEquals(10, airplane.getSeatsByClass(TravelClass.Economy).getAvailableSeats());
     }
 
     @Test
