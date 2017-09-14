@@ -10,11 +10,11 @@ public class FlightPriceCalculator {
     Function<Flight, Double> getMuliplierByClassByBookingDate(TravelClass travelClass) {
          switch (travelClass.toString()){
              case "Business":
-                 return FlightFareMultiplier::getBusinessClassRateByBookingDate;
+                 return FlightFareMultiplier::getBusinessClassRate;
              case "First":
                  return FlightFareMultiplier::getFirstClassRateByBookingDate;
              case "Economy":
-                 return FlightFareMultiplier::getEconomyClassRateByBookingDate;
+                 return FlightFareMultiplier::getEconomyClassRate;
              default:
                  return (it) ->  0.0;
          }
