@@ -43,6 +43,22 @@ public class Flight {
             return false;
     }
 
+    public int getAvailableSeatsByClass(TravelClass travelClass){
+        if(isValidTravelClass(travelClass.toString()) && airplane.hasTravelClass(travelClass)){
+            return airplane.getSeatsByClass(travelClass).getAvailableSeats();
+        }
+        else
+            return 0;
+    }
+
+    public int getTotalSeatsByClass(TravelClass travelClass){
+        if(isValidTravelClass(travelClass.toString()) && airplane.hasTravelClass(travelClass)){
+            return airplane.getSeatsByClass(travelClass).getTotalSeats();
+        }
+        else
+            return 0;
+    }
+
     public int getSeatsByClass(String travelClass){
         if(!travelClass.isEmpty() && isValidTravelClass(travelClass) && airplane.hasTravelClass(TravelClass.valueOf(travelClass))){
             return airplane.getSeatsByClass(TravelClass.valueOf(travelClass)).getAvailableSeats();
