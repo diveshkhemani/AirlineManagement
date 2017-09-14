@@ -9,6 +9,7 @@ public class FlightFareMultiplier {
     private static double PERCENT90 = 0.9;
     private static double PERCENT50 = 0.5;
 
+
     public static Double getEconomyClassRate(Flight flight) {
         int availableEconomySeats = flight.getAvailableSeatsByClass(TravelClass.Economy);
         int totalEconomySeats = flight.getTotalSeatsByClass(TravelClass.Economy);
@@ -26,7 +27,8 @@ public class FlightFareMultiplier {
     }
 
     public static Double getBusinessClassRate(Flight flight) {
-        return flight.getPriceByClass(TravelClass.Business);
+        double basePrice = flight.getPriceByClass(TravelClass.Business);
+        return flight.departsOnPopularDays() ? basePrice+(basePrice*PERCENT40): basePrice;
     }
 
     public static Double getFirstClassRateByBookingDate(Flight flight) {

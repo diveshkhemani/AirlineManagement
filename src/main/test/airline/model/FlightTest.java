@@ -11,13 +11,14 @@ import java.util.List;
 public class FlightTest {
 
     Flight flight;
+    Airplane airplane;
 
     @Before
     public void initialize(){
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,10,10));
         testSeats.add(new Seat(TravelClass.Business,10,30,3));
-        Airplane airplane = new Airplane("TestPlane",testSeats);
+        airplane = new Airplane("TestPlane",testSeats);
         flight = new Flight("F1234","IXC" , "MUM", LocalDate.now(),airplane);
     }
 
@@ -77,4 +78,27 @@ public class FlightTest {
         Assert.assertEquals(0, flight.getSeatsByClass(""));
     }
 
+    @Test
+    public void departsOnPopularDaysShouldBeTrueForMonday() throws Exception {
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,11),airplane);
+        Assert.assertEquals(true, flight.departsOnPopularDays());
+    }
+
+    @Test
+    public void departsOnPopularDaysShouldBeTrueForFriday() throws Exception {
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,15),airplane);
+        Assert.assertEquals(true, flight.departsOnPopularDays());
+    }
+
+    @Test
+    public void departsOnPopularDaysShouldBeTrueForSunday() throws Exception {
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,17),airplane);
+        Assert.assertEquals(true, flight.departsOnPopularDays());
+    }
+
+    @Test
+    public void departsOnPopularDaysShouldBeTrueForRegularDays() throws Exception {
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,14),airplane);
+        Assert.assertEquals(false, flight.departsOnPopularDays());
+    }
 }

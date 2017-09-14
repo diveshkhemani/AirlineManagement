@@ -13,10 +13,8 @@ import java.util.List;
 
 public class FlightFareMultiplierTest {
 
-    
-    // Economy Class Test Cases
     @Test
-    public void shouldReturnBasePriceWhenNoSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturnBasePriceWhenNoSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,100));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -26,7 +24,7 @@ public class FlightFareMultiplierTest {
 
 
     @Test
-    public void shouldReturnBasePriceWhen10PCSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturnBasePriceWhen10PCSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,90));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -35,7 +33,7 @@ public class FlightFareMultiplierTest {
     }
 
     @Test
-    public void shouldReturnBasePriceWhen39PCSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturnBasePriceWhen39PCSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,61));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -44,7 +42,7 @@ public class FlightFareMultiplierTest {
     }
 
     @Test
-    public void shouldReturn30PCBasePriceWhen40PCSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturn30PCBasePriceWhen40PCSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,60));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -53,7 +51,7 @@ public class FlightFareMultiplierTest {
     }
 
     @Test
-    public void shouldReturn30PCPlusBasePriceWhen50PCSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturn30PCPlusBasePriceWhen50PCSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,50));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -62,7 +60,7 @@ public class FlightFareMultiplierTest {
     }
 
     @Test
-    public void shouldReturn60PCPlusBasePriceWhen90PCSeatsAreBooked() throws Exception {
+    public void getEconomyClassRateShouldReturn60PCPlusBasePriceWhen90PCSeatsAreBooked() throws Exception {
         List<Seat> testSeats = new ArrayList<Seat>();
         testSeats.add(new Seat(TravelClass.Economy,40,100,10));
         Airplane airplane = new Airplane("TestPlane",testSeats);
@@ -70,7 +68,26 @@ public class FlightFareMultiplierTest {
         Assert.assertEquals(60, FlightFareMultiplier.getEconomyClassRate(flight),0.00);
     }
 
-    // Business Class Test Cases
-    
+
+    @Test
+    public void getBusinessClassRateShouldReturnBasePriceWhenDepartDayIsNotPopular() throws Exception {
+        List<Seat> testSeats = new ArrayList<Seat>();
+        testSeats.add(new Seat(TravelClass.Business,40,100,10));
+        Airplane airplane = new Airplane("TestPlane",testSeats);
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,19),airplane);
+
+        Assert.assertEquals(40, FlightFareMultiplier.getBusinessClassRate(flight),0.00);
+    }
+
+    @Test
+    public void getBusinessClassRateShouldReturn40PCPlusBasePriceWhenDepartDayIsPopular() throws Exception {
+        List<Seat> testSeats = new ArrayList<Seat>();
+        testSeats.add(new Seat(TravelClass.Business,40,100,10));
+        Airplane airplane = new Airplane("TestPlane",testSeats);
+        Flight flight = new Flight("F1234","IXC" , "MUM", LocalDate.of(2017,9,18),airplane);
+
+        Assert.assertEquals(56, FlightFareMultiplier.getBusinessClassRate(flight),0.00);
+    }
+
 
 }

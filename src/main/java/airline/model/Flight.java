@@ -1,5 +1,6 @@
 package airline.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -10,6 +11,7 @@ public class Flight {
     private String destination;
     private Airplane airplane;
     private LocalDate departureDate;
+    private final DayOfWeek[] POPULAR_DAYS_TO_FLY = new DayOfWeek[] {DayOfWeek.MONDAY, DayOfWeek.FRIDAY, DayOfWeek.SUNDAY};
 
     public Flight(String flightNumber, String source, String destination,LocalDate departureDate, Airplane airplane) {
         this.flightNumber = flightNumber;
@@ -47,6 +49,10 @@ public class Flight {
         return isValidTravelClass(travelClass) ?
                 airplane.getAvailableSeatsByClass(TravelClass.valueOf(travelClass)) :
                 0;
+    }
+
+    public boolean departsOnPopularDays(){
+        return Arrays.asList(POPULAR_DAYS_TO_FLY).contains(departureDate.getDayOfWeek());
     }
 
     // Proxy Methods for Airplane
